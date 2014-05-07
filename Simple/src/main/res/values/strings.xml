@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Simple</string>
+    <string name="stop">Stop</string>
+    <string name="card_sample_text">card_sample_text</string>
+    <string name="remember">Remember</string>
+
+</resources>
