@@ -61,6 +61,19 @@ public class MenuActivity extends Activity {
                     }
                 });
                 return true;
+            case R.id.items:
+                // Start the new Activity at the end of the message queue for proper options menu
+                // animation. This is only needed when starting a new Activity or stopping a Service
+                // that published a LiveCard.
+                post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Intent itemsActivity = new Intent(MenuActivity.this, ItemsActivity.class);
+                        startActivityForResult(itemsActivity, 0);
+                    }
+                });
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

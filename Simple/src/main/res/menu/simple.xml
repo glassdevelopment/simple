@@ -5,6 +5,12 @@
         android:id="@+id/remember"
         android:title="@string/remember"
         android:icon="@drawable/ic_done_50" />
+
+    <item
+        android:id="@+id/items"
+        android:title="@string/items"
+        android:icon="@drawable/ic_search_50" />
+
     <item
         android:id="@+id/stop"
         android:title="@string/stop"

@@ -32,6 +32,12 @@
             android:enabled="true" >
         </activity>
 
+        <activity
+            android:name="uy.edu.fing.proygrad.simple.ItemsActivity"
+            android:label="@string/app_name"
+            android:enabled="true" >
+        </activity>
+
         <service
             android:name="uy.edu.fing.proygrad.simple.SimpleLiveCardService"
             android:icon="@drawable/ic_launcher"
