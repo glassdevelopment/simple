@@ -11,6 +11,9 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import uy.edu.fing.proygrad.simple.db.SampleContract;
+import uy.edu.fing.proygrad.simple.model.Item;
+
 /**
  * Created by Gonzalo on 04/05/2014.
  */
@@ -42,8 +45,8 @@ public class PhotoHandler implements Camera.PictureCallback {
             return;
         }
 
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyymmddhhmmss");
-        String date = dateFormat.format(new Date());
+        Date photoDate = new Date();
+        String date = new SimpleDateFormat("yyyymmddhhmmss").format(photoDate);
         String photoFile = "Picture_" + date + ".jpg";
 
         String filename = pictureFileDir.getPath() + File.separator + photoFile;
@@ -54,6 +57,10 @@ public class PhotoHandler implements Camera.PictureCallback {
             FileOutputStream fos = new FileOutputStream(pictureFile);
             fos.write(data);
             fos.close();
+
+            Item item = new Item(new SimpleDateFormat("hh:mm:ss dd/MM/yyyy").format(photoDate), filename);
+            context.getContentResolver().insert(SampleContract.Item.CONTENT_URI, item.toContentValues());
+
             Toast.makeText(context, IMAGE_SAVED + ":" + photoFile, Toast.LENGTH_LONG).show();
         }
         catch (Exception error) {

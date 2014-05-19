@@ -52,6 +52,11 @@
                 android:resource="@xml/voice_trigger_start" />
         </service>
 
+        <provider
+            android:authorities="uy.edu.fing.proygrad.remember.provider"
+            android:name="uy.edu.fing.proygrad.simple.db.SampleProvider"
+            android:syncable="true" />
+
     </application>
 
 </manifest>

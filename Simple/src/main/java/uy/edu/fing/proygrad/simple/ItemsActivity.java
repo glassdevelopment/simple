@@ -1,9 +1,11 @@
 package uy.edu.fing.proygrad.simple;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,7 +17,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
+
+import uy.edu.fing.proygrad.simple.db.SampleContract;
 
 /**
  * Created by gmelo on 5/7/14.
@@ -23,17 +26,15 @@ import java.util.Arrays;
 public class ItemsActivity extends Activity {
 
     private ArrayList<Card> mlcCards = new ArrayList<Card>();
-    private ArrayList<String> mlsText = new ArrayList<String>(Arrays.asList("Hello", "World"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
 
-        for (int i = 0; i < mlsText.size(); i++)
-        {
-            String filepath = "/sdcard/Pictures/CameraAPIDemo/Picture_20140607120624.jpg";
-            File imagefile = new File(filepath);
+        Cursor c = this.getContentResolver().query(SampleContract.Item.CONTENT_URI, SampleContract.Item.ITEM_PROJECTION, null, null, null);
+        while (c.moveToNext()) {
+            File imagefile = new File(c.getString(c.getColumnIndex(SampleContract.Item.COLUMN_NAME_PHOTO_URI)));
             FileInputStream fis = null;
             try {
                 fis = new FileInputStream(imagefile);
@@ -45,16 +46,11 @@ public class ItemsActivity extends Activity {
 
             // Create a card with a full-screen background image.
             Card card2 = new Card(this);
-            card2.setText("One word description");
-            card2.setFootnote("11 May 2014");
+            card2.setText("One word description for picture no.: " + c.getPosition());
+            card2.setFootnote(c.getString(c.getColumnIndex(SampleContract.Item.COLUMN_NAME_DATETIME)));
             card2.setImageLayout(Card.ImageLayout.FULL);
             card2.addImage(bm);
             mlcCards.add(card2);
-
-            /*Card newCard = new Card(this);
-            newCard.setImageLayout(Card.ImageLayout.FULL);
-            newCard.setText(mlsText.get(i));
-            mlcCards.add(newCard);*/
         }
 
         CardScrollView csvCardsView = new CardScrollView(this);
