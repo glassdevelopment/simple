@@ -2,9 +2,11 @@
 <resources>
 
     <string name="app_name">Simple</string>
-    <string name="stop">Stop</string>
     <string name="card_sample_text">card_sample_text</string>
     <string name="remember">Remember</string>
+    <string name="record">Record</string>
     <string name="items">Items</string>
+    <string name="stop">Stop</string>
+    <string name="btnCapture">Capture</string>
 
 </resources>

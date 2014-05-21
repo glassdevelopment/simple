@@ -19,7 +19,6 @@ import java.io.IOException;
  */
 public class PhotoActivity extends Activity implements GestureDetector.BaseListener {
 
-    private AudioManager mAudioManager;
     private GestureDetector mDetector;
     private CameraManager cameraManager;
 
@@ -51,13 +50,12 @@ public class PhotoActivity extends Activity implements GestureDetector.BaseListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
         mDetector = new GestureDetector(this).setBaseListener(this);
         cameraManager = new CameraManager(this.getApplicationContext());
 
         setContentView(R.layout.photo_layout);
 
-        mPreview = (SurfaceView) findViewById(R.id.preview);
+        mPreview = (SurfaceView) findViewById(R.id.photo_preview);
         mPreview.getHolder().addCallback(mSurfaceHolderCallback);
     }
 
@@ -77,19 +75,15 @@ public class PhotoActivity extends Activity implements GestureDetector.BaseListe
     public boolean onGesture(Gesture gesture) {
         switch (gesture) {
             case TAP:
-                playSoundEffect(Sounds.TAP);
+                GlassSupport.playSoundEffect(this, Sounds.TAP);
                 return true;
             case SWIPE_DOWN:
-                playSoundEffect(Sounds.DISMISSED);
+                GlassSupport.playSoundEffect(this, Sounds.DISMISSED);
                 finish();
                 return true;
             default:
                 return false;
         }
-    }
-
-    protected void playSoundEffect(int soundId) {
-        mAudioManager.playSoundEffect(soundId);
     }
 
     @Override

@@ -7,6 +7,11 @@
         android:icon="@drawable/ic_done_50" />
 
     <item
+        android:id="@+id/record"
+        android:title="@string/record"
+        android:icon="@drawable/ic_video_50" />
+
+    <item
         android:id="@+id/items"
         android:title="@string/items"
         android:icon="@drawable/ic_search_50" />
