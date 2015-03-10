@@ -16,8 +16,14 @@ import com.google.android.glass.media.Sounds;
 import com.google.android.glass.touchpad.Gesture;
 import com.google.android.glass.touchpad.GestureDetector;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import uy.edu.fing.proygrad.simple.db.SampleContract;
+import uy.edu.fing.proygrad.simple.model.Item;
 
 /**
  * Created by gmelo on 5/19/14.
@@ -32,6 +38,8 @@ public class RecordActivity extends Activity implements GestureDetector.BaseList
     private boolean isRecording = false;
     private static final String TAG = "Recorder";
 
+    private File file = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,10 @@ public class RecordActivity extends Activity implements GestureDetector.BaseList
 
         // Keep the screen on while recording
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        // Start recording immediatly
+        Toast.makeText(RecordActivity.this, "Tap to finish recording", Toast.LENGTH_SHORT).show();
+        new MediaPrepareTask().execute(null, null, null);
     }
 
     @Override
@@ -55,13 +67,16 @@ public class RecordActivity extends Activity implements GestureDetector.BaseList
                     mCamera.lock();         // take camera access back from MediaRecorder
 
                     // inform the user that recording has stopped
-                    Toast.makeText(this, "Capture", Toast.LENGTH_SHORT);
+                    Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
+
+                    Date lastModDate = new Date(file.lastModified());
+
+                    Item item = new Item(new SimpleDateFormat("hh:mm:ss dd/MM/yyyy").format(lastModDate), file.getName());
+                    getContentResolver().insert(SampleContract.Item.CONTENT_URI, item.toContentValues());
 
                     isRecording = false;
                     releaseCamera();
 
-                } else {
-                    new MediaPrepareTask().execute(null, null, null);
                 }
                 return true;
             case SWIPE_DOWN:
@@ -148,7 +163,8 @@ public class RecordActivity extends Activity implements GestureDetector.BaseList
         mMediaRecorder.setProfile(profile);
 
         // Step 4: Set output file
-        mMediaRecorder.setOutputFile(CameraHelper.getOutputMediaFile(CameraHelper.MEDIA_TYPE_VIDEO).toString());
+        file = CameraHelper.getOutputMediaFile(CameraHelper.MEDIA_TYPE_VIDEO);
+        mMediaRecorder.setOutputFile(file.toString());
 
         // Step 5: Prepare configured MediaRecorder
         try {
@@ -189,7 +205,7 @@ public class RecordActivity extends Activity implements GestureDetector.BaseList
                 RecordActivity.this.finish();
             }
             // inform the user that recording has started
-            Toast.makeText(RecordActivity.this, "Stop", Toast.LENGTH_SHORT);
+            Toast.makeText(RecordActivity.this, "Stop", Toast.LENGTH_SHORT).show();
         }
     }
 }

@@ -55,7 +55,7 @@ public class SampleProvider extends ContentProvider {
     sItemsProjectionMap = new HashMap<String, String>();
     sItemsProjectionMap.put(Item._ID, Item._ID);
     sItemsProjectionMap.put(Item.COLUMN_NAME_DATETIME, Item.COLUMN_NAME_DATETIME);
-    sItemsProjectionMap.put(Item.COLUMN_NAME_PHOTO_URI, Item.COLUMN_NAME_PHOTO_URI);
+    sItemsProjectionMap.put(Item.COLUMN_NAME_FILE_URI, Item.COLUMN_NAME_FILE_URI);
     
   }
 

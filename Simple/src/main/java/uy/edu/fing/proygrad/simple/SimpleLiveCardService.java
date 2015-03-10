@@ -37,10 +37,15 @@ public class SimpleLiveCardService extends Service {
             // Always call setViews() to update the live card's RemoteViews.
             mLiveCard.setViews(mLiveCardView);
 
+//            Intent menuIntent = new Intent(this, MenuActivity.class);
+//            menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
+//            mLiveCard.attach(this);
+//            mLiveCard.publish(PublishMode.REVEAL);
+
+            // Display the options menu when the live card is tapped.
             Intent menuIntent = new Intent(this, MenuActivity.class);
-            menuIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             mLiveCard.setAction(PendingIntent.getActivity(this, 0, menuIntent, 0));
-            mLiveCard.attach(this);
             mLiveCard.publish(PublishMode.REVEAL);
         } else {
             mLiveCard.navigate();

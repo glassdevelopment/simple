@@ -9,12 +9,11 @@ import uy.edu.fing.proygrad.simple.db.SampleContract;
  */
 public class Item extends BaseModel{
   private String datetime;
-  private String photoUri;
+  private String fileUri;
 
-  public Item(String datetime, String photoUri) {
-
+  public Item(String datetime, String fileUri) {
     this.datetime = datetime;
-    this.photoUri = photoUri;
+    this.fileUri = fileUri;
   }
 
   public String getDatetime() {
@@ -26,18 +25,18 @@ public class Item extends BaseModel{
   }
 
   public String getPhotoUri() {
-    return photoUri;
+    return fileUri;
   }
 
-  public void setPhotoUri(String photoUri) {
-    this.photoUri = photoUri;
+  public void setPhotoUri(String fileUri) {
+    this.fileUri = fileUri;
   }
 
   @Override
   public ContentValues toContentValues() {
     ContentValues values = new ContentValues();
     values.put(SampleContract.Item.COLUMN_NAME_DATETIME, this.getDatetime());
-    values.put(SampleContract.Item.COLUMN_NAME_PHOTO_URI, this.getPhotoUri());
+    values.put(SampleContract.Item.COLUMN_NAME_FILE_URI, this.getPhotoUri());
     return values;
   }
 }

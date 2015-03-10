@@ -2,13 +2,10 @@ package uy.edu.fing.proygrad.simple;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.hardware.Camera;
-import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 /**
  * Created by Gonzalo on 04/05/2014.
@@ -41,7 +38,6 @@ public class MenuActivity extends Activity {
                 // animation. This is only needed when starting a new Activity or stopping a Service
                 // that published a LiveCard.
                 post(new Runnable() {
-
                     @Override
                     public void run() {
                         stopService(new Intent(MenuActivity.this, SimpleLiveCardService.class));
@@ -53,7 +49,6 @@ public class MenuActivity extends Activity {
                 // animation. This is only needed when starting a new Activity or stopping a Service
                 // that published a LiveCard.
                 post(new Runnable() {
-
                     @Override
                     public void run() {
                         Intent photoActivity = new Intent(MenuActivity.this, PhotoActivity.class);
@@ -66,7 +61,6 @@ public class MenuActivity extends Activity {
                 // animation. This is only needed when starting a new Activity or stopping a Service
                 // that published a LiveCard.
                 post(new Runnable() {
-
                     @Override
                     public void run() {
                         Intent recordActivity = new Intent(MenuActivity.this, RecordActivity.class);
@@ -79,7 +73,6 @@ public class MenuActivity extends Activity {
                 // animation. This is only needed when starting a new Activity or stopping a Service
                 // that published a LiveCard.
                 post(new Runnable() {
-
                     @Override
                     public void run() {
                         Intent itemsActivity = new Intent(MenuActivity.this, ItemsActivity.class);
@@ -94,6 +87,7 @@ public class MenuActivity extends Activity {
 
     @Override
     public void onOptionsMenuClosed(Menu menu) {
+        super.onOptionsMenuClosed(menu);
         // Nothing else to do, closing the Activity.
         finish();
     }

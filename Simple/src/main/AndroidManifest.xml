@@ -61,7 +61,7 @@
         </service>
 
         <provider
-            android:authorities="uy.edu.fing.proygrad.remember.provider"
+            android:authorities="uy.edu.fing.proygrad.simple.provider"
             android:name="uy.edu.fing.proygrad.simple.db.SampleProvider"
             android:syncable="true" />
 

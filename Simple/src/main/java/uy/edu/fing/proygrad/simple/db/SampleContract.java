@@ -14,7 +14,7 @@ public final class SampleContract {
   private SampleContract() {}
 
   private static final String SCHEME = "content://";
-  public static final String AUTHORITY = "uy.edu.fing.proygrad.remember.provider";
+  public static final String AUTHORITY = "uy.edu.fing.proygrad.simple.provider";
 
   private static final String TEXT_TYPE = " Text ";
   private static final String INTEGER_TYPE = " Integer ";
@@ -37,7 +37,7 @@ public final class SampleContract {
      * Column definitions
      */
     public static final String COLUMN_NAME_DATETIME = "datetime";
-    public static final String COLUMN_NAME_PHOTO_URI = "photo_uri";
+    public static final String COLUMN_NAME_FILE_URI = "file_uri";
 
     /*
      * Create and Drop definitions
@@ -46,7 +46,7 @@ public final class SampleContract {
       "CREATE TABLE " + TABLE_NAME + " (" +
           _ID + INTEGER_TYPE + PRIMARY_KEY + COMMA_SEP +
           COLUMN_NAME_DATETIME + DATE_TYPE + COMMA_SEP +
-          COLUMN_NAME_PHOTO_URI + TEXT_TYPE +
+              COLUMN_NAME_FILE_URI + TEXT_TYPE +
           " )";
 
     public static final String DROP_TABLE = DROP_TABLE_DEFINITION + TABLE_NAME;
@@ -64,8 +64,8 @@ public final class SampleContract {
     /*
      * MIME type definitions
      */
-    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.proygrad.sample.customer";
-    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.proygrad.sample.customer";
+    public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.proygrad.sample.simple";
+    public static final String CONTENT_ITEM_TYPE = "vnd.android.cursor.item/vnd.proygrad.sample.simple";
 
     /*
      * Projections
@@ -73,7 +73,7 @@ public final class SampleContract {
     public static final String[] ITEM_PROJECTION = new String[] {
         Item._ID,
         COLUMN_NAME_DATETIME,
-        COLUMN_NAME_PHOTO_URI
+            COLUMN_NAME_FILE_URI
     };
   }
 }

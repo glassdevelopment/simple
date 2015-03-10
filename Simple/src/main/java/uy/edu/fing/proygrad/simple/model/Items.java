@@ -23,15 +23,15 @@ public class Items extends BaseList {
     this.items = items;
   }
 
-  public void add(Item customer) {
-    items.add(customer);
+  public void add(Item item) {
+    items.add(item);
   }
 
   @Override
   public ContentValues[] toContentValues() {
     List<ContentValues> contentValueses = new ArrayList<ContentValues>();
-    for(Item customer : items) {
-      contentValueses.add(customer.toContentValues());
+    for(Item item : items) {
+      contentValueses.add(item.toContentValues());
     }
     ContentValues[] arrContentValueses = new ContentValues[contentValueses.size()];
     return contentValueses.toArray(arrContentValueses);

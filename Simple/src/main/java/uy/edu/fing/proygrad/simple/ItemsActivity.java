@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -34,23 +34,34 @@ public class ItemsActivity extends Activity {
 
         Cursor c = this.getContentResolver().query(SampleContract.Item.CONTENT_URI, SampleContract.Item.ITEM_PROJECTION, null, null, null);
         while (c.moveToNext()) {
-            File imagefile = new File(c.getString(c.getColumnIndex(SampleContract.Item.COLUMN_NAME_PHOTO_URI)));
-            FileInputStream fis = null;
-            try {
-                fis = new FileInputStream(imagefile);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
+            File file = new File(c.getString(c.getColumnIndex(SampleContract.Item.COLUMN_NAME_FILE_URI)));
+
+            Uri uri = Uri.fromFile(file);
+            String mime = getContentResolver().getType(uri);
+
+            if (mime.equals("img/jpg")) {
+                FileInputStream fis = null;
+                try {
+                    fis = new FileInputStream(file);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+                Bitmap bm = BitmapFactory.decodeStream(fis);
+
+                // Create a card with a full-screen background image.
+                Card card2 = new Card(this);
+                card2.setText("One word description for picture no.: " + c.getPosition());
+                card2.setFootnote(c.getString(c.getColumnIndex(SampleContract.Item.COLUMN_NAME_DATETIME)));
+                card2.setImageLayout(Card.ImageLayout.FULL);
+                card2.addImage(bm);
+                mlcCards.add(card2);
+            } else if (mime.equals("video/mp4")) {
+
+            } else {
+
             }
 
-            Bitmap bm = BitmapFactory.decodeStream(fis);
-
-            // Create a card with a full-screen background image.
-            Card card2 = new Card(this);
-            card2.setText("One word description for picture no.: " + c.getPosition());
-            card2.setFootnote(c.getString(c.getColumnIndex(SampleContract.Item.COLUMN_NAME_DATETIME)));
-            card2.setImageLayout(Card.ImageLayout.FULL);
-            card2.addImage(bm);
-            mlcCards.add(card2);
         }
 
         CardScrollView csvCardsView = new CardScrollView(this);
